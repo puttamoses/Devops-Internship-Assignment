@@ -1,8 +1,18 @@
-FROM golang:1.21
+FROM golang:1.20
 
-WORKDIR /app
+# Set GOPATH mode (disables module mode)
+ENV GO111MODULE=off
+
+# Set up GOPATH and working dir
+WORKDIR /go/src/app
+
+# Copy your source code
 COPY . .
-RUN go mod tidy
-RUN go build -o main .
 
-CMD ["./main"]
+# Build using GOPATH style
+RUN go build -o service1
+
+EXPOSE 8001
+
+CMD ["./service1"]
+
